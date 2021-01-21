@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/** paleta de colores de firebase */
+.firebase-orange-color-1 {
+    background-color: #ffcb2b;
+}
+.firebase-orange-color-2{
+    background-color: #ffa611;
+}
+.firebase-orange-color-3 {
+    background-color: #f5820d;
+}
+.text-white{
+    color: white;
+}
