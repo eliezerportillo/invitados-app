@@ -29,8 +29,6 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { InvitadosListComponent } from './invitados-list/invitados-list.component';
 
-// others
-import { BottomNavModule } from 'ngx-bottom-nav';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,8 +53,7 @@ import { BottomNavModule } from 'ngx-bottom-nav';
     ReactiveFormsModule,
     MatToolbarModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,
-    BottomNavModule
+    AngularFireAuthModule
   ],
   providers: [Title],
   bootstrap: [AppComponent]
