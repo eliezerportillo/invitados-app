@@ -1,4 +1,6 @@
-.content{
+@import "../../variables.scss";
+
+.content {
     min-height: 100vh;
 }
 
@@ -8,9 +10,13 @@
 
     height: 64px;
 
-    a{
-        span{
+    a {
+        span {
             line-height: 24px;
         }
     }
+}
+
+.active-link {
+    color: $primary;
 }

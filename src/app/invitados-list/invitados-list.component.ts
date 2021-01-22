@@ -29,7 +29,7 @@ export class InvitadosListComponent implements OnInit {
     this.collectionRef
       .snapshotChanges()
       .subscribe((querySnapshot) => {
-        // this.invitados = [];
+        this.invitados = [];
         querySnapshot.forEach((doc) => {
           const data = doc.payload.doc.data();
           const docId = doc.payload.doc.id;

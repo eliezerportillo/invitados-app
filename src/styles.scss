@@ -1,4 +1,4 @@
-
+@import 'variables.scss';
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
@@ -12,19 +12,19 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$primary: mat-palette($mat-orange, 500);
-$accent: mat-palette($mat-blue, A200, A100, A400);
+$app-primary: mat-palette($mat-orange, 500);
+$app-accent: mat-palette($mat-blue, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$warn: mat-palette($mat-red);
+$app-warn: mat-palette($mat-red);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
 $invitados-app-theme: mat-light-theme((
   color: (
-    primary: $primary,
-    accent: $accent,
-    warn: $warn,
+    primary: $app-primary,
+    accent: $app-accent,
+    warn: $app-warn,
   )
 ));
 
@@ -39,6 +39,7 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /** paleta de colores de firebase */
+
 .firebase-orange-color-1 {
     background-color: #ffcb2b;
 }
