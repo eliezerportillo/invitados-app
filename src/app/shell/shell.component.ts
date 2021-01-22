@@ -20,8 +20,12 @@ export class ShellComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.route.data.subscribe(data => {
+      this.titulo = data.titulo;
+    });
+
     this.router.events.pipe(
-      filter(event => event instanceof NavigationStart),
+      filter(event => event instanceof NavigationEnd),
     )
       .subscribe(() => {
         var rt = this.getChild(this.route)
@@ -30,7 +34,7 @@ export class ShellComponent implements OnInit {
           this.titulo = data.titulo;
           this.titleService.setTitle(data.titulo);
         })
-      });
+    });
   }
 
   getChild(activatedRoute: ActivatedRoute) {

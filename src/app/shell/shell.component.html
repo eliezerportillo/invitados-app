@@ -1,6 +1,28 @@
-<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
-    <span>{{titulo}}</span>
-    <app-user-menu></app-user-menu>
+<div class="content" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
+        <span class="text-white">{{titulo}}</span>
+        <app-user-menu></app-user-menu>
 
-</mat-toolbar>
-<router-outlet></router-outlet>
+    </mat-toolbar>
+    <div fxFlex>
+        <router-outlet></router-outlet>
+    </div>
+    <mat-toolbar class="menu" fxLayout="row" fxLayoutAlign="space-evenly center">
+
+        <a mat-button routerLink="/invitados" routerLinkActive="active-link">
+            <div fxLayout="column" fxLayoutAlign="center center">
+                <mat-icon>people_outline</mat-icon>
+                <span>Invitados</span>
+            </div>
+        </a>
+
+        <a mat-button routerLink="/recepcion" routerLinkActive="active-link">
+            <div fxLayout="column" fxLayoutAlign="center center">
+                <mat-icon>deck</mat-icon>
+                <span>Recepción</span>
+            </div>
+        </a>
+
+    </mat-toolbar>
+
+</div>
