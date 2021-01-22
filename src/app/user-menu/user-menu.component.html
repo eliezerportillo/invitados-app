@@ -1,0 +1,10 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+    <button mat-button [matMenuTriggerFor]="menu">
+        <img *ngIf="hasPhoto" [src]="photo" alt="profile picture">
+        <mat-icon *ngIf="!hasPhoto" color="default">account_circle</mat-icon>
+    </button>
+</div>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onLogout()">Cerrar sesión</button>
+</mat-menu>

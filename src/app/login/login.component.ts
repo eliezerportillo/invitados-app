@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginService } from './login.service';
-import { LoginType } from './login.type';
+import { AngularFireAuth } from '@angular/fire/auth';
+import firebase from 'firebase/app'
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -13,34 +15,67 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    private readonly _loginService:LoginService,
-    private readonly _fb:FormBuilder) { }
+    private readonly _fb: FormBuilder,
+    private auth: AngularFireAuth,
+    private router: Router,
+    private snackBar: MatSnackBar) { }
+
+  get email(): string { return this.form.get('usuario').value; }
+  get password(): string { return this.form.get('contrasenia').value; }
 
   ngOnInit(): void {
     this.form = this._fb.group({
-      usuario:['', Validators.required],
-      contrasenia:['', Validators.required],
+      usuario: ['', Validators.required],
+      contrasenia: ['', Validators.required],
     });
   }
- 
-  onSubmit() {
-    if(this.form.invalid){
+
+  onLogin() {
+    if (this.form.invalid) {
       console.error("formulario invalido");
       return;
     }
-    const loginType:LoginType = {
-      usuario: this.form.get("usuario").value,
-      contrasenia: this.form.get("contrasenia").value
-    }
 
-    this._loginService.login(loginType).subscribe((data:LoginType) => { alert(`usuario:${data.usuario} - contrasenia:${data.contrasenia}`) });
+    this.auth
+      .signInWithEmailAndPassword(this.email, this.password)
+      .then(response => {
+        this.router.navigate(['invitados']);
+      })
+      .catch(err => {
+        console.log('Something is wrong:', err.message);
+      });
   }
 
-  onLoginConGoogle(){
-   alert("loggin con google");
+  onSingup() {
+    this.auth
+      .createUserWithEmailAndPassword(this.email, this.password)
+      .then(response => {
+        this.router.navigate(['invitados']);
+      })
+      .catch(error => {
+        console.log('Something is wrong:', error.message);
+      });
   }
-  
-  onLoginConFacebook(){
-   alert("loggin con facebook");
+
+  onLoginConGoogle() {
+    this.auth
+      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then(async (response) => {
+        this.router.navigate(['invitados']);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  onLoginConFacebook() {
+    this.auth
+      .signInWithPopup(new firebase.auth.FacebookAuthProvider())
+      .then(async (response) => {
+        this.router.navigate(['invitados']);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }
