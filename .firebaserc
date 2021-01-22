@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "invitados-app": {
+      "hosting": {
+        "invitados-app": [
+          "invitados-app"
+        ]
+      }
+    }
+  }
+}
