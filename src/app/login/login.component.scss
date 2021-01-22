@@ -10,5 +10,15 @@
     padding: 8%;
 }
 .footer-container{
-    padding: 20% 10%;
+    padding: 25% 12%;
+    button{
+        margin-bottom: 5%;
+        padding: 3%;
+    }
 }
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+    border-radius: 5px;
+}
+  
