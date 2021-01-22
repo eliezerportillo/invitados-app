@@ -1,0 +1,28 @@
+<div class="firebase-orange-color-2 login-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayout="column">
+    <div fxLayoutAlign="center center" class="text-white title">
+        Invitados App
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Usuario</mat-label>
+      <input matInput formControlName="usuario">    
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input matInput formControlName="contrasenia" type="password">    
+    </mat-form-field>
+  
+    <div fxLayoutAlign="center center">
+        <button mat-button class="text-white">Entrar</button>
+    </div>
+  </form>
+</div>
+
+<div class="footer-container">
+   <div fxLayout="column">
+     <button mat-raised-button class="firebase-pink-color text-white" (click)="onLoginConGoogle()">Entrar con Google</button>
+     <button mat-raised-button class="firebase-blue-color text-white" (click)="onLoginConFacebook()">Entrar con Facebook</button>
+   </div>
+</div>
