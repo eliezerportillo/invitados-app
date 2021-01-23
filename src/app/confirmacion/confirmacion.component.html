@@ -1,0 +1,27 @@
+<mat-toolbar color="primary">
+    <span class="text-white">
+        Confirmación de invitados
+    </span>
+</mat-toolbar>
+<div fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="8px">
+
+
+    <mat-toolbar>Invitados</mat-toolbar>
+    <p>Selecciona la casilla a lado del nombre de los invitados que desees confirmar</p>
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-spinner *ngIf="invitados.length == 0"></mat-spinner>
+    </div>
+
+    <mat-selection-list #items>
+        <mat-list-option *ngFor="let item of invitados" [disabled]="item.confirmado" [value]="item.id">
+            <p> {{item.nombre}}
+                <span *ngIf="item.confirmado">(Confirmado)</span>
+            </p>
+        </mat-list-option>
+    </mat-selection-list>
+
+    <button mat-flat-button color="accent" [disabled]="items.selectedOptions.selected.length == 0 || confirmado"
+        (click)="confirmar(items.selectedOptions.selected)">Confirmar</button>
+
+</div>

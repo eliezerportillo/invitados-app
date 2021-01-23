@@ -19,6 +19,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 import { environment } from 'src/environments/environment';
@@ -28,6 +29,8 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { InvitadosListComponent } from './invitados-list/invitados-list.component';
+import { RecepcionComponent } from './recepcion/recepcion.component';
+import { ConfirmacionComponent } from './confirmacion/confirmacion.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { InvitadosListComponent } from './invitados-list/invitados-list.componen
     LoginComponent,
     ShellComponent,
     UserMenuComponent,
-    InvitadosListComponent
+    InvitadosListComponent,
+    RecepcionComponent,
+    ConfirmacionComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +54,7 @@ import { InvitadosListComponent } from './invitados-list/invitados-list.componen
     MatMenuModule,
     MatIconModule,
     MatListModule,
+    MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
     MatToolbarModule,
