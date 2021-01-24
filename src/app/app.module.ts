@@ -31,6 +31,9 @@ import { UserMenuComponent } from './user-menu/user-menu.component';
 import { InvitadosListComponent } from './invitados-list/invitados-list.component';
 import { RecepcionComponent } from './recepcion/recepcion.component';
 import { ConfirmacionComponent } from './confirmacion/confirmacion.component';
+import { FormularioInvitadosComponent } from './formulario-invitados/formulario-invitados.component';
+import { AcompanianteService } from './services/acompaniante.service';
+import { InvitadoService } from './services/invitado.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import { ConfirmacionComponent } from './confirmacion/confirmacion.component';
     UserMenuComponent,
     InvitadosListComponent,
     RecepcionComponent,
-    ConfirmacionComponent
+    ConfirmacionComponent,
+    FormularioInvitadosComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +65,7 @@ import { ConfirmacionComponent } from './confirmacion/confirmacion.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule
   ],
-  providers: [Title],
+  providers: [Title, AcompanianteService, InvitadoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

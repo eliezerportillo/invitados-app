@@ -1,0 +1,49 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <mat-toolbar>{{titulo}}</mat-toolbar>
+
+    <div fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="10px" class="my-padding">
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre">            
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Telefono</mat-label>
+            <input matInput formControlName="telefono">            
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Correo</mat-label>
+            <input matInput formControlName="correo">            
+        </mat-form-field>
+    </div>
+
+    <div class="my-padding">
+        <h2>Acompañantes</h2>
+    </div>
+
+    <div class="my-padding" fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="8px">
+
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Buscar</mat-label>
+            <input matInput placeholder="Buscar" [formControl]="filtro">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <button mat-flat-button color="accent" type="button">
+            <mat-icon>add</mat-icon>
+        </button>
+
+    </div>
+
+    <mat-nav-list>
+        <mat-list-item *ngFor="let item of acompaniantesFiltrados | async">
+            <span>{{item.nombre}}</span>
+            <span class="spacer"></span>
+            <mat-icon *ngIf="item.confirmado" color="accent">done</mat-icon>
+        </mat-list-item>
+    </mat-nav-list>
+    
+    <div class="my-padding btn">
+        <button mat-raised-button color="accent" fxFlex>Guardar invitado</button>    
+    </div>
+</form>
