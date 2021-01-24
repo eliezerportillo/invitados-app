@@ -33,7 +33,7 @@ export class InvitadosListComponent implements OnInit {
         querySnapshot.forEach((doc) => {
           const data = doc.payload.doc.data();
           const docId = doc.payload.doc.id;
-          this.invitados.push({ id: docId, nombre: data.nombre, confirmado: data.confirmado });
+          this.invitados.push({ id: docId, nombre: data.nombre, confirmado: data.confirmado, telefono:null, correo:null });
         });
       });
   }

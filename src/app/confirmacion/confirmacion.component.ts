@@ -30,7 +30,7 @@ export class ConfirmacionComponent implements OnInit {
       doc.invitadosRef.forEach(s => {
         s.get().then(item => {
           const data = item.data();
-          this.invitados.push({ id: item.id, nombre: data.nombre, confirmado: data.confirmado });
+          this.invitados.push({ id: item.id, nombre: data.nombre, confirmado: data.confirmado, telefono:null, correo:null });
         });
       });
     }
