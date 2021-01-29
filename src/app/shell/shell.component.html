@@ -2,8 +2,9 @@
     <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
         <span class="text-white">{{titulo}}</span>
         <app-user-menu></app-user-menu>
-
     </mat-toolbar>
+    <mat-progress-bar *ngIf="cargando" color="accent" mode="query">
+    </mat-progress-bar>
     <div fxFlex>
         <router-outlet></router-outlet>
     </div>

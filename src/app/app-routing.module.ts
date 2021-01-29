@@ -33,15 +33,21 @@ const routes: Routes = [
         path: 'invitados/agregar',
         component: FormularioInvitadosComponent,
         data: {
-          titulo: 'Nuevo invitado'
+          titulo: 'Agregar invitado',
         },
+        resolve: {
+          invitado: InvitadoResolver
+        }
       },
       {
-        path: 'invitados/actualizar/:id',
+        path: 'invitados/:id',
         component: FormularioInvitadosComponent,
         data: {
-          titulo: 'Actualizar invitado',          
+          titulo: 'Actualizar invitado',
         },
+        resolve: {
+          invitado: InvitadoResolver
+        }
       },
       {
         path: 'recepcion',

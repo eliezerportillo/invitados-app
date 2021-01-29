@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router, NavigationEnd, ActivatedRoute, NavigationStart } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute, NavigationStart, NavigationCancel, NavigationError } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 
 @Component({
@@ -11,6 +11,8 @@ import { filter, map } from 'rxjs/operators';
 export class ShellComponent implements OnInit {
 
   titulo: string;
+  cargando: boolean;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -24,17 +26,36 @@ export class ShellComponent implements OnInit {
       this.titulo = data.titulo;
     });
 
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-    )
+    // Cambiar título
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
-        var rt = this.getChild(this.route)
-
+        var rt = this.getChild(this.route);
         rt.data.subscribe(data => {
           this.titulo = data.titulo;
           this.titleService.setTitle(data.titulo);
-        })
-    });
+        });
+      });
+
+    // Mostrar barra de carga
+    this.router.events
+      .subscribe(event => {
+
+        switch (true) {
+          case event instanceof NavigationStart: {
+            this.cargando = true;
+            break;
+          }
+
+          case event instanceof NavigationEnd:
+          case event instanceof NavigationCancel:
+          case event instanceof NavigationError: {
+            this.cargando = false;
+            break;
+          }
+        }
+      });
+
   }
 
   getChild(activatedRoute: ActivatedRoute) {

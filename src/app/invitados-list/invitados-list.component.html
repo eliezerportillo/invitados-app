@@ -6,17 +6,17 @@
 
         <mat-form-field appearance="outline" fxFlex>
             <mat-label>Buscar</mat-label>
-            <input matInput placeholder="Buscar" [(ngModel)]="filtro">
+            <input matInput placeholder="Buscar" [formControl]="filtro">
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
-        <button mat-flat-button color="accent">
+        <button mat-flat-button color="accent" [routerLink]="['agregar']">
             <mat-icon>add</mat-icon>
         </button>
 
     </div>
 
     <mat-nav-list class="listado">
-        <mat-list-item *ngFor="let item of invitadosFiltrados">
+        <mat-list-item *ngFor="let item of invitadosFiltrados | async" [routerLink]="item.id">
             <span>{{item.nombre}}</span>
             <span class="spacer"></span>
             <mat-icon *ngIf="item.confirmado" color="accent">done</mat-icon>

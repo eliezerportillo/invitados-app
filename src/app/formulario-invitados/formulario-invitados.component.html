@@ -1,49 +1,42 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="space-between stretch">
-    <mat-toolbar>{{titulo}}</mat-toolbar>
+<form [formGroup]="form" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <mat-toolbar>{{nombre ? 'Información de ' + nombre : 'Información del invitado'}}</mat-toolbar>
 
     <div fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="10px" class="my-padding">
         <mat-form-field appearance="outline" fxFlex>
             <mat-label>Nombre</mat-label>
-            <input matInput formControlName="nombre">            
+            <input matInput formControlName="nombre">
         </mat-form-field>
 
         <mat-form-field appearance="outline" fxFlex>
             <mat-label>Telefono</mat-label>
-            <input matInput formControlName="telefono">            
+            <input matInput formControlName="telefono">
         </mat-form-field>
 
         <mat-form-field appearance="outline" fxFlex>
             <mat-label>Correo</mat-label>
-            <input matInput formControlName="correo">            
+            <input matInput formControlName="correo">
         </mat-form-field>
     </div>
 
-    <div class="my-padding">
-        <h2>Acompañantes</h2>
-    </div>
-
-    <div class="my-padding" fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="8px">
-
-        <mat-form-field appearance="outline" fxFlex>
-            <mat-label>Buscar</mat-label>
-            <input matInput placeholder="Buscar" [formControl]="filtro">
-            <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-        <button mat-flat-button color="accent" type="button">
+    <mat-toolbar color="white">
+        <span>Acompañantes</span>
+        <span class="spacer"></span>
+        <button mat-flat-button color="accent" type="button" (click)="onAdd()">
             <mat-icon>add</mat-icon>
         </button>
+    </mat-toolbar>
 
-    </div>
-
-    <mat-nav-list>
-        <mat-list-item *ngFor="let item of acompaniantesFiltrados | async">
+    <mat-list>
+        <mat-list-item *ngFor="let item of acompaniantes | async">
             <span>{{item.nombre}}</span>
             <span class="spacer"></span>
-            <mat-icon *ngIf="item.confirmado" color="accent">done</mat-icon>
+            <button mat-icon-button>
+                <mat-icon color="accent">delete</mat-icon>
+            </button>
         </mat-list-item>
-    </mat-nav-list>
+    </mat-list>
     
     <div class="my-padding btn">
-        <button mat-raised-button color="accent" fxFlex>Guardar invitado</button>    
+        <button mat-raised-button color="accent" fxFlex (click)="onGuardar()">Guardar invitado</button>
     </div>
 </form>
