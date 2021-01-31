@@ -39,6 +39,7 @@ export class FormularioInvitadosComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value))
     );
+    this.form.get('nombre').valueChanges.subscribe(value => this.invitado.nombre = value);
   }
 
   onSubmit() {
@@ -68,7 +69,7 @@ export class FormularioInvitadosComponent implements OnInit {
     this.invitado.invitados.push({ id: '', nombre: 'Nuevo', confirmado: false, correo: '', telefono: '' });
   }
 
-  onDelete(item){
+  onDelete(item) {
 
   }
 

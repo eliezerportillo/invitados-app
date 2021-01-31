@@ -1,0 +1,19 @@
+<mat-toolbar>Invitacion</mat-toolbar>
+<div class="container" fxLayout="column" fxLayoutGap="8px">
+
+    <mat-form-field appearance="outline">
+        <mat-label>Mensaje</mat-label>
+        <textarea matInput [(ngModel)]="mensaje" rows="3"></textarea>
+    </mat-form-field>
+
+    <mat-card>
+        <mat-card-subtitle>Vista previa</mat-card-subtitle>
+        <mat-card-content>
+            <p>{{mensaje}}</p>
+            <p><a [href]="urlConfirmacion" color="primary">{{urlConfirmacion}}</a></p>
+        </mat-card-content>
+    </mat-card>
+
+    <a class="whatsapp" [href]="whatsappLink" mat-stroked-button color="teal">Enviar por WhatsApp</a>
+
+</div>

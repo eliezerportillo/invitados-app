@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Invitado } from '../models/invitado-model';
+import domtoimage from 'dom-to-image';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-confirmacion',
@@ -15,6 +17,8 @@ export class ConfirmacionComponent implements OnInit {
   invitados: Invitado[];
   seleccionados: string[];
   confirmado: boolean;
+  @ViewChild('qr', { static: true }) container: ElementRef;
+
   constructor(
     private route: ActivatedRoute,
     private db: AngularFirestore) {
@@ -24,13 +28,14 @@ export class ConfirmacionComponent implements OnInit {
 
   ngOnInit(): void {
     const doc = this.route.snapshot.data['invitado'] as Invitado;
+    this.id = doc.id;
     this.invitados.push(doc);
 
     if (doc.invitadosRef) {
       doc.invitadosRef.forEach(s => {
         s.get().then(item => {
           const data = item.data();
-          this.invitados.push({ id: item.id, nombre: data.nombre, confirmado: data.confirmado, telefono:null, correo:null });
+          this.invitados.push({ id: item.id, nombre: data.nombre, confirmado: data.confirmado, telefono: null, correo: null });
         });
       });
     }
@@ -49,6 +54,13 @@ export class ConfirmacionComponent implements OnInit {
     await batch.commit();
     this.confirmado = true;
     location.reload();
+  }
+
+  onDescargar() {
+    domtoimage.toBlob(this.container.nativeElement)
+      .then(function (blob) {
+        saveAs(blob, 'invitacion-qr-code.png');
+      });
   }
 
 }

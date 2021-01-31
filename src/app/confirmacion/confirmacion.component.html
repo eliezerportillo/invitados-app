@@ -6,7 +6,12 @@
 <div fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="8px">
 
 
-    <mat-toolbar>Invitados</mat-toolbar>
+    <mat-toolbar>
+        <span>Invitados</span>
+        <span class="spacer"></span>
+        <button mat-button color="accent" [disabled]="items.selectedOptions.selected.length == 0 || confirmado"
+            (click)="confirmar(items.selectedOptions.selected)">Confirmar</button>
+    </mat-toolbar>
     <p>Selecciona la casilla a lado del nombre de los invitados que desees confirmar</p>
 
     <div fxLayout="row" fxLayoutAlign="center center">
@@ -21,7 +26,13 @@
         </mat-list-option>
     </mat-selection-list>
 
-    <button mat-flat-button color="accent" [disabled]="items.selectedOptions.selected.length == 0 || confirmado"
-        (click)="confirmar(items.selectedOptions.selected)">Confirmar</button>
 
+    <mat-toolbar>
+        <span>Invitación</span>
+        <span class="spacer"></span>
+        <button mat-button color="primary" (click)="onDescargar()">Descargar</button>
+    </mat-toolbar>
+    <div #qr class="qr">
+        <qrcode [elementType]="'url'" [qrdata]="id" [width]="256" [errorCorrectionLevel]="'H'" [margin]="1"></qrcode>
+    </div>
 </div>
