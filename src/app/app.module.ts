@@ -22,6 +22,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 
 
@@ -55,6 +56,9 @@ import { InvitacionComponent } from './invitacion/invitacion.component';
     FormularioInvitadosComponent,
     InvitacionComponent,
   ],
+  entryComponents: [
+    InvitacionComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -70,6 +74,7 @@ import { InvitacionComponent } from './invitacion/invitacion.component';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatCardModule,
+    MatBottomSheetModule,
     FormsModule,
     ReactiveFormsModule,
     MatToolbarModule,

@@ -1,5 +1,12 @@
+<mat-toolbar>
+    <!-- <span>{{nombre ? 'Información de ' + nombre : 'Información del invitado'}}</span> -->
+    <span>Información del invitado</span>
+    <span class="spacer"></span>
+    <button *ngIf="invitado.id" mat-button color="primary" (click)="onInvitar()">Invitar</button>
+
+</mat-toolbar>
+
 <form [formGroup]="form" fxLayout="column" fxLayoutAlign="space-between stretch">
-    <mat-toolbar>{{nombre ? 'Información de ' + nombre : 'Información del invitado'}}</mat-toolbar>
 
     <div fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="10px" class="my-padding">
         <mat-form-field appearance="outline" fxFlex>
@@ -18,30 +25,46 @@
         </mat-form-field>
     </div>
 
-    <app-invitacion [invitado]="invitado"></app-invitacion>
 
-
-    <mat-toolbar color="white">
+    <!-- <app-invitacion [invitado]="invitado"></app-invitacion> -->
+    <mat-toolbar>
         <span>Acompañantes</span>
-        <span class="spacer"></span>
-        <button mat-flat-button color="accent" type="button" (click)="onAdd()">
-            <mat-icon>add</mat-icon>
-        </button>
     </mat-toolbar>
 
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="my-padding">
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Agregar acompañante</mat-label>
+            <input #input matInput [formControl]="nombre" placeholder="Nombre">
+        </mat-form-field>
+        <button mat-icon-button color="primary" type="button" (click)="onAdd(); input.focus();"
+            [disabled]="nombre.invalid">
+            <mat-icon>person_add</mat-icon>
+        </button>
+    </div>
 
-    <mat-list>
-        <mat-list-item *ngFor="let item of acompaniantes | async">
-            <span>{{item.nombre}}</span>
-            <span class="spacer"></span>
-            <button mat-icon-button>
-                <mat-icon color="accent">delete</mat-icon>
-            </button>
-        </mat-list-item>
-    </mat-list>
-
-    <div class="my-padding btn">
-        <button mat-raised-button color="accent" fxFlex (click)="onGuardar()">Guardar invitado</button>
+    <!-- Lista de acompañantes -->
+    <div class="invitados">
+        <div *ngIf="sinInvitados" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+            <mat-icon>people</mat-icon>
+            <span>Sin acompañantes</span>
+        </div>
+        <mat-list formArrayName="invitados">
+            <mat-list-item *ngFor="let item of invitados.controls; let i=index">
+                <span>{{item.value}}</span>
+                <span class="spacer"></span>
+                <button mat-icon-button>
+                    <mat-icon color="accent" (click)="onRemove(i); input.focus()">delete</mat-icon>
+                </button>
+            </mat-list-item>
+        </mat-list>
     </div>
 
 </form>
+
+ <!-- botones -->
+ <div class="my-padding" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="8px">
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
+        <button mat-stroked-button fxFlex routerLink="..">Cancelar</button>
+        <button mat-stroked-button color="accent" fxFlex (click)="onGuardar()">Guardar</button>
+    </div>
+</div>

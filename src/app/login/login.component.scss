@@ -1,19 +1,22 @@
-.login-container{
-    padding-top: 20%; 
-    padding-left: 12%;
-    padding-right: 12%;
-    padding-bottom: 10%;
+@import "../../variables.scss";
+
+.content {
+    min-height: 100vh;
+    color: white;
 }
-.title{
-    font-size: 30px;
-    font-weight: 700;
-    padding: 8%;
+
+form {
+    background-color: $primary;
 }
-.footer-container{
-    padding: 25% 12%;
-    button{
-        margin-bottom: 5%;
-        padding: 3%;
+
+button {
+    min-width: 180px;
+}
+
+mat-toolbar {
+    span {
+        color: white;
+        font-size: larger;
     }
 }
 
@@ -21,4 +24,3 @@
     background-color: white;
     border-radius: 5px;
 }
-  

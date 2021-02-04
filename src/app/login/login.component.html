@@ -1,28 +1,26 @@
-<div class="firebase-orange-color-2 login-container">
-  <form [formGroup]="form" (ngSubmit)="onLogin()" fxLayout="column">
-    <div fxLayoutAlign="center center" class="text-white title">
-        Invitados App
-    </div>
+<div class="content" fxLayout="column" fxLayoutAlign="space-between stretch">
+  <form fxFlex="50" [formGroup]="form" (ngSubmit)="onLogin()" fxLayout="column" fxLayoutAlign="center center">
+    <mat-toolbar fxLayoutAlign="center center" color="primary">
+      <span>Invitados App</span>
+    </mat-toolbar>
 
     <mat-form-field appearance="outline">
       <mat-label>Usuario</mat-label>
-      <input matInput formControlName="usuario">    
+      <input matInput formControlName="usuario">
     </mat-form-field>
-  
+
     <mat-form-field appearance="outline">
       <mat-label>Contraseña</mat-label>
-      <input matInput formControlName="contrasenia" type="password">    
+      <input matInput formControlName="contrasenia" type="password">
     </mat-form-field>
-  
+
     <div fxLayoutAlign="center center">
-        <button mat-button class="text-white">Entrar</button>
+      <button mat-button>Entrar</button>
     </div>
   </form>
-</div>
 
-<div class="footer-container">
-   <div fxLayout="column">
-     <button mat-raised-button class="firebase-pink-color text-white" (click)="onLoginConGoogle()">Entrar con Google</button>
-     <button mat-raised-button class="firebase-blue-color text-white" (click)="onLoginConFacebook()">Entrar con Facebook</button>
-   </div>
+  <div fxFlex="50" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+    <button mat-raised-button color="warn" (click)="onLoginConGoogle()">Entrar con Google</button>
+    <button mat-raised-button color="accent" (click)="onLoginConFacebook()">Entrar con Facebook</button>
+  </div>
 </div>

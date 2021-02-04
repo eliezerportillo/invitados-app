@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { Invitado } from '../models/invitado-model';
 
 @Component({
@@ -9,9 +10,11 @@ import { Invitado } from '../models/invitado-model';
 export class InvitacionComponent implements OnInit {
 
   mensaje: string;
-  @Input() invitado: Invitado;
+  invitado: Invitado;
 
-  constructor() { }
+  constructor(public vista: MatBottomSheetRef<InvitacionComponent>, @Inject(MAT_BOTTOM_SHEET_DATA) data: any) {
+    this.invitado = data;
+  }
 
   ngOnInit(): void {
     this.mensaje = `¡Hola ${this.invitado.nombre}, estás invitado a nuestro evento. Esperamos puedas asistir. Te invitamos a confirmar tu presencia en el siguiente enlace: `;
