@@ -15,6 +15,11 @@
 
     </div>
 
+    <div *ngIf="sinInvitados" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+        <mat-icon>people</mat-icon>
+        <span>Sin Invitados</span>
+    </div>
+
     <mat-nav-list class="listado">
         <mat-list-item *ngFor="let item of invitadosFiltrados | async" [routerLink]="item.id">
             <span>{{item.nombre}}</span>

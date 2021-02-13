@@ -36,17 +36,26 @@ export class InvitadoService {
             if (acomp.id === '') {
                 doc = this.collectionRef.doc().ref;
                 temp.invitadosRef.push(this.db.doc<Invitado>(`invitados/${doc.id}`).ref)
-            } else {
+            }
+            else {
+
                 // En caso contrario, Se añadirá una referencia al invitado existente
                 doc = this.collectionRef.doc(acomp.id).ref;
                 temp.invitadosRef.push(this.db.doc<Invitado>(`invitados/${acomp.id}`).ref)
+
             }
 
             batch.set(doc, i);
         });
 
-        const invitadoExistente = this.collectionRef.doc(invitado.id).ref;
-        batch.set(invitadoExistente, temp);
+        if (invitado.id) {
+            const invitadoExistente = this.collectionRef.doc(invitado.id).ref;
+            batch.set(invitadoExistente, temp);
+        }
+        else {
+            const invitadoNuevo = this.collectionRef.doc().ref;
+            batch.set(invitadoNuevo, temp);
+        }
 
         return batch.commit();
     }

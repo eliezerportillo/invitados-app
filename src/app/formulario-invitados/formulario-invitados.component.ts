@@ -1,8 +1,6 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Invitado } from '../models/invitado-model';
 import { InvitadoService } from '../services/invitado.service';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -16,36 +14,43 @@ import { InvitacionComponent } from '../invitacion/invitacion.component';
 export class FormularioInvitadosComponent implements OnInit {
 
   form: FormGroup;
-  filtro: FormControl = new FormControl();
-  invitado: Invitado;
-  nombre: FormControl;
+  model: Invitado;
+  nombreControl: FormControl;
 
   constructor(
-    private readonly _route: ActivatedRoute,
-    private readonly _fb: FormBuilder,
-    private readonly _invitadoService: InvitadoService,
-    private readonly _bottomSheet: MatBottomSheet) {
+    private readonly route: ActivatedRoute,
+    private readonly fb: FormBuilder,
+    private readonly invitadoService: InvitadoService,
+    private readonly bottomSheet: MatBottomSheet,
+    private readonly router: Router) {
 
-    this.nombre = new FormControl('', Validators.required);
-    this.form = this._fb.group({
+    this.nombreControl = new FormControl('');
+    this.form = this.fb.group({
+      id: [''],
       nombre: ['', Validators.required],
       telefono: ['', Validators.required],
       correo: ['', Validators.compose([Validators.required, Validators.email])],
-      invitados: _fb.array([])
+      confirmado: [false]
     });
   }
 
 
-  get invitados() {
-    return this.form.get('invitados') as FormArray;
-  }
+  get invitados() { return this.form.get('invitados') as FormArray; }
 
   get sinInvitados(): boolean { return !this.invitados.value.some(x => true); }
 
   ngOnInit(): void {
-    this.invitado = this._route.snapshot.data['invitado'] as Invitado;
-    this.form.patchValue(this.invitado);
-    this.form.get('nombre').valueChanges.subscribe(value => this.invitado.nombre = value);
+    this.model = this.route.snapshot.data['invitado'] as Invitado;
+    this.form.patchValue(this.model);
+
+    const acompanantes = this.model.invitados.map(x => {
+      return this.fb.group({
+        id: [x.id],
+        nombre: [x.nombre, Validators.required]
+      });
+    });
+
+    this.form.registerControl('invitados', new FormArray(acompanantes));
   }
 
   onGuardar() {
@@ -53,21 +58,26 @@ export class FormularioInvitadosComponent implements OnInit {
       return;
     }
 
-    this._invitadoService.guardar(this.invitado);
+    const data = this.form.getRawValue() as Invitado;
+    this.invitadoService.guardar(data).then(() => this.router.navigate(['invitados']));
   }
 
   onAdd() {
-    this.invitados.push(this._fb.control(this.nombre.value));
-    this.nombre.reset();
+    if (this.nombreControl.value === '') return;
+
+    this.invitados.controls.unshift(this.fb.group({
+      id: [''],
+      nombre: [this.nombreControl.value, Validators.required]
+    }));
+    this.nombreControl.reset();
   }
 
   onRemove(index) {
     this.invitados.removeAt(index);
-
   }
 
   onInvitar(): void {
-    this._bottomSheet.open(InvitacionComponent, { data: this.invitado });
+    this.bottomSheet.open(InvitacionComponent, { data: this.model });
   }
 
 }

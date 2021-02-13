@@ -29,6 +29,8 @@ export class InvitadosListComponent implements OnInit {
 
   }
 
+  get sinInvitados(): boolean { return !this.invitados.some(x => true); }
+
   ngOnInit(): void {
     this.collectionRef
       .snapshotChanges()
